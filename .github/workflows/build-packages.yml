@@ -29,7 +29,7 @@ jobs:
         rpmbuild -ba ~/rpmbuild/SPECS/script_caunter.spec
 
     - name: Upload RPM artifact
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: script-caunter-rpm
         path: ~/rpmbuild/RPMS/**/*.rpm
@@ -46,7 +46,7 @@ jobs:
         dpkg-deb --build ~/debbuild
 
     - name: Upload DEB artifact
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: script-caunter-deb
         path: ~/debbuild.deb

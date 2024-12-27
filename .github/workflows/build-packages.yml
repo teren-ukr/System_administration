@@ -22,7 +22,6 @@ jobs:
     - name: Install build dependencies
       run: sudo apt-get install -y gcc make
       
-      
 
     - name: Create necessary directories for DEB and RPM
       run: |
@@ -49,8 +48,10 @@ jobs:
       run: dpkg-deb --build lab6/deb
       
       
+      
     - name: Install build dependencies for RPM
-      run: sudo apt-get install -y gcc make rpm-build
+      run: sudo apt-get install -y gcc make rpm
+
 
     - name: Build RPM package
       run: rpmbuild -bb lab6/rpm/SPECS/script_caunter.spec

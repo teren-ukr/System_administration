@@ -1,0 +1,9 @@
+Package: script-caunter-gitActions
+Version: 1.0
+Section: base
+Priority: optional
+Architecture: all
+Depends: bash
+Maintainer: TEREN88  https://github.com/teren-ukr/System_administration
+Description: Example script
+ This is deb which was created by github actions

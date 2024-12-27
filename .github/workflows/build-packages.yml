@@ -45,6 +45,8 @@ jobs:
       
     - name: Commit all changes
       run: |
+        git config --global user.email "email"
+        git config --global user.name " Name"
         git add .
         git commit -m "Automated commit of all changes"
         git push

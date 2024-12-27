@@ -19,6 +19,11 @@ jobs:
     - name: Set up build environment
       run: sudo apt-get update && sudo apt-get install -y rpm dpkg-dev
       
+    - name: Create necessary directories for DEB and RPM
+      run: |
+        mkdir -p lab6/deb/bin
+        mkdir -p lab6/rpm/SOURCES
+      
     - name: Prepare DEB sources
       run: cp script_caunter.sh lab6/deb/bin
       

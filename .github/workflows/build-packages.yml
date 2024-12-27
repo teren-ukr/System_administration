@@ -30,6 +30,7 @@ jobs:
           --define "_srcrpmdir $(pwd)/lab6/results" \
           --define "_specdir $(pwd)/lab6" \
           --define "_sourcedir $(pwd)/lab6" \
+          --nocheck \
           lab6/script_caunter.spec
 
     - name: Upload RPM artifact

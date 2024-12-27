@@ -14,7 +14,7 @@ This is an example script.
 %build
 
 %install
-install -D -m 0755 %{_sourcedir}/../script_caunter.sh %{buildroot}/script_caunter.sh
+install -D -m 0755 %{_sourcedir}/../script_caunter.sh %{buildroot}/usr/local/bin/script_caunter.sh
 
 %files
 /usr/local/bin/script_caunter.sh

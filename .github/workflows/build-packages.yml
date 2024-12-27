@@ -23,11 +23,12 @@ jobs:
       run: |
         mkdir -p lab6/deb/bin
         mkdir -p lab6/rpm/SOURCES
-      
+
     - name: Prepare DEB sources
-      run: cp script_caunter.sh lab6/deb/bin
-      
+      run: cp ./script_caunter.sh ./lab6/deb/bin/
+
     - name: Prepare RPM sources
-      run: cp script_caunter.sh lab6/rpm/SOURCES
+      run: cp ./script_caunter.sh ./lab6/rpm/SOURCES/
+
 
     

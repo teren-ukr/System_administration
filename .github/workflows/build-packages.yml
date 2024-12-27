@@ -16,34 +16,35 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Set up RPM build environment
-      run: sudo apt-get update && sudo apt-get install -y rpm
+    - name: Set up build environment
+      run: sudo apt-get update && sudo apt-get install -y rpm dpkg-dev
 
     - name: Build RPM package
       run: |
-        cp "lab6(rpm and deb)/script_caunter.spec" ~/rpmbuild/SPECS/
-        cp "lab6(rpm and deb)/script_caunter.sh" ~/rpmbuild/SOURCES/
-        rpmbuild -ba ~/rpmbuild/SPECS/script_caunter.spec
-        cp ~/rpmbuild/RPMS/**/*.rpm "lab6(rpm and deb)/results/"
+        rpmbuild -bb \
+          --define "_topdir $(pwd)/lab6" \
+          --define "_rpmdir $(pwd)/lab6/results" \
+          --define "_srcrpmdir $(pwd)/lab6/results" \
+          --define "_specdir $(pwd)/lab6" \
+          --define "_sourcedir $(pwd)/lab6" \
+          lab6/script_caunter.spec
 
     - name: Upload RPM artifact
       uses: actions/upload-artifact@v4
       with:
         name: script-caunter-rpm
-        path: "lab6(rpm and deb)/results/*.rpm"
-
-    - name: Set up DEB build environment
-      run: sudo apt-get install -y dpkg-dev
+        path: "lab6/results/*.rpm"
 
     - name: Build DEB package
       run: |
-        cp "lab6(rpm and deb)/control" ~/debbuild/DEBIAN/
-        cp "lab6(rpm and deb)/script_caunter.sh" ~/debbuild/usr/local/bin/
-        dpkg-deb --build ~/debbuild
-        cp ~/debbuild.deb "lab6(rpm and deb)/results/script-caunter_1.0_all.deb"
+        mkdir -p lab6/results/DEBIAN
+        cp lab6/control lab6/results/DEBIAN/
+        cp script_caunter.sh lab6/results/usr/local/bin/
+        dpkg-deb --build lab6/results
+        mv lab6/results.deb lab6/results/script-caunter_1.0_all.deb
 
     - name: Upload DEB artifact
       uses: actions/upload-artifact@v4
       with:
         name: script-caunter-deb
-        path: "lab6(rpm and deb)/results/*.deb"
+        path: "lab6/results/*.deb"

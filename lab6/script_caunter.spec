@@ -4,20 +4,21 @@ Release:        1%{?dist}
 Summary:        Example script
 
 License:        GPL
-Source0:        %{name}.sh
+Source0:        script_caunter.sh
 
 %description
-This is an example script.
+This is an example script for demonstration purposes.
 
 %prep
 
 %build
 
 %install
-install -D -m 0755 %{SOURCE0} %{buildroot}/usr/local/bin/%{name}.sh
+install -D -m 0755 %{SOURCE0} %{buildroot}/usr/local/bin/script_caunter.sh
 
 %files
-/usr/local/bin/%{name}.sh
+%license LICENSE
+/usr/local/bin/script_caunter.sh
 
 %changelog
 * Thu Dec 26 2024 TEREN88 https://github.com/teren-ukr/System_administration - 1.0-1

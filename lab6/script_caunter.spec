@@ -3,12 +3,11 @@ Version:        1.0
 Release:        1%{?dist}
 Summary:        Example script
 
-
+License:        GPL
 Source0:        ../script_caunter.sh
 
-
 %description
-This is an example script for demonstration purposes.
+This is an example script.
 
 %prep
 
@@ -17,9 +16,7 @@ This is an example script for demonstration purposes.
 %install
 install -D -m 0755 %{_sourcedir}/../script_caunter.sh %{buildroot}/usr/local/bin/script_caunter.sh
 
-
 %files
-%license LICENSE
 /usr/local/bin/script_caunter.sh
 
 %changelog

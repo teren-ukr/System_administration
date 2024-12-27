@@ -41,4 +41,11 @@ jobs:
     
     - name: List files after copying to RPM
       run: ls -R ./lab6/rpm
+      
+      
+    - name: Commit all changes
+      run: |
+        git add .
+        git commit -m "Automated commit of all changes"
+        git push
     

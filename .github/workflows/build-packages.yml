@@ -47,6 +47,10 @@ jobs:
 
     - name: Build DEB package
       run: dpkg-deb --build lab6/deb
+      
+      
+    - name: Install build dependencies for RPM
+      run: sudo apt-get install -y gcc make rpm-build
 
     - name: Build RPM package
       run: rpmbuild -bb lab6/rpm/SPECS/script_caunter.spec

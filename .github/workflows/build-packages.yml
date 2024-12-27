@@ -16,44 +16,49 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Install build dependencies
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y rpm build-essential fakeroot dpkg-dev
+    - name: Set up build environment
+      run: sudo apt-get update && sudo apt-get install -y rpm dpkg-dev
+      
+      
 
-    - name: Set up RPM build directories
+    - name: Create necessary directories for DEB and RPM
       run: |
-        mkdir -p ~/rpmbuild/{BUILD,RPMS,SOURCES,SPECS,SRPMS}
+        mkdir -p lab6/deb/bin
+        mkdir -p lab6/rpm/SOURCES
+        echo "Directories created"
 
-    - name: Copy files to RPM build directories
-      run: |
-        cp script_caunter.sh ~/rpmbuild/SOURCES/script_caunter.sh
-        cp lab6/rpm/SPECS/script_caunter.spec ~/rpmbuild/SPECS/script_caunter.spec
+    - name: List files before copying for debugging
+      run: ls -R
 
-    - name: Build RPM package
-      run: |
-        rpmbuild -ba ~/rpmbuild/SPECS/script_caunter.spec
+    - name: Prepare DEB sources
+      run: cp ./script_caunter.sh ./lab6/deb/bin/
 
-    - name: Set up DEB build directory structure
-      run: |
-        mkdir -p ~/debbuild/script-caunter-1.0/usr/local/bin
-        mkdir -p ~/debbuild/script-caunter-1.0/usr/share/doc/script-caunter
-        mkdir -p ~/debbuild/script-caunter-1.0/DEBIAN
+    - name: List files after copying to DEB
+      run: ls -R ./lab6/deb
 
-        cp script_caunter.sh ~/debbuild/script-caunter-1.0/usr/local/bin/
-        cp lab6/deb/DEBIAN/control ~/debbuild/script-caunter-1.0/DEBIAN/control
-        cp lab6/deb/DEBIAN/rules ~/debbuild/script-caunter-1.0/DEBIAN/rules
-        cp lab6/deb/DEBIAN/compat ~/debbuild/script-caunter-1.0/DEBIAN/compat
+    - name: Prepare RPM sources
+      run: cp ./script_caunter.sh ./lab6/rpm/SOURCES/
+
+    - name: List files after copying to RPM
+      run: ls -R ./lab6/rpm
 
     - name: Build DEB package
+      run: dpkg-deb --build lab6/deb
+      
+      
+      
+    - name: Install build dependencies
+      run: sudo apt-get install -y gcc make rpm rpmdevtools
+      
+    - name: Check gcc and make availability
       run: |
-        cd ~/debbuild/script-caunter-1.0
-        dpkg-deb --build . ../script-caunter-1.0.deb
+        gcc --version
+        make --version
 
-    - name: Upload RPM and DEB artifacts
-      uses: actions/upload-artifact@v3
-      with:
-        name: script_caunter_package
-        path: |
-          ~/rpmbuild/RPMS/noarch/script_caunter-1.0-1.noarch.rpm
-          ~/debbuild/script-caunter-1.0.deb
+    - name: Build RPM package
+      run: rpmbuild -bb lab6/rpm/SPECS/script_caunter.spec
+
+    - name: List generated packages
+      run: |
+        ls -R lab6/deb
+        ls -R lab6/rpm

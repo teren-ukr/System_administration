@@ -3,7 +3,7 @@ Version:        1.0
 Release:        1%{?dist}
 Summary:        Example script
 
-License:        GPL
+
 Source0:        ../script_caunter.sh
 
 

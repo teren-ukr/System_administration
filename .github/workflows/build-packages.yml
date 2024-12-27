@@ -23,12 +23,19 @@ jobs:
       run: |
         mkdir -p lab6/deb/bin
         mkdir -p lab6/rpm/SOURCES
+        echo "Directories created"
+
+    - name: List files and directories for debugging
+      run: |
+        ls -R
+        echo "Listing files after creation"
 
     - name: Prepare DEB sources
       run: cp ./script_caunter.sh ./lab6/deb/bin/
-
+    
     - name: Prepare RPM sources
       run: cp ./script_caunter.sh ./lab6/rpm/SOURCES/
+
 
 
     

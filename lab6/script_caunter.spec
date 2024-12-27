@@ -14,9 +14,11 @@ This is an example script.
 %build
 
 %install
+# Встановлюємо скрипт без створення підкаталогів
 install -D -m 0755 %{_sourcedir}/../script_caunter.sh %{buildroot}/script_caunter.sh
 
 %files
+# Вказуємо, що файл знаходиться в корені пакунка
 %{_bindir}/script_caunter.sh
 
 %changelog

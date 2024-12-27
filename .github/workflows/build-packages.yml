@@ -18,9 +18,7 @@ jobs:
 
     - name: Set up build environment
       run: sudo apt-get update && sudo apt-get install -y rpm dpkg-dev
-      
-      
-      
+
     - name: Create necessary directories for DEB and RPM
       run: |
         mkdir -p lab6/deb/bin
@@ -32,22 +30,23 @@ jobs:
 
     - name: Prepare DEB sources
       run: cp ./script_caunter.sh ./lab6/deb/bin/
-    
+
     - name: List files after copying to DEB
       run: ls -R ./lab6/deb
 
     - name: Prepare RPM sources
       run: cp ./script_caunter.sh ./lab6/rpm/SOURCES/
-    
+
     - name: List files after copying to RPM
       run: ls -R ./lab6/rpm
-      
-      
-    - name: Commit all changes
+
+    - name: Build DEB package
+      run: dpkg-deb --build lab6/deb
+
+    - name: Build RPM package
+      run: rpmbuild -bb lab6/rpm/SPECS/script_caunter.spec
+
+    - name: List generated packages
       run: |
-        git config --global user.email "email"
-        git config --global user.name " Name"
-        git add .
-        git commit -m "Automated commit of all changes"
-        git push
-    
+        ls -R lab6/deb
+        ls -R lab6/rpm

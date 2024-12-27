@@ -1,24 +1,28 @@
-Name:           script_caunter
+Name:           script-caunter
 Version:        1.0
 Release:        1%{?dist}
-Summary:        Example script
+Summary:        Simple script for counting
 
 License:        GPL
-Source0:        ../script_caunter.sh
+URL:            http://example.com/script-caunter
+Source0:        script_caunter.sh
+
+BuildArch:      x86_64
+BuildRequires:  gcc, make
 
 %description
-This is an example script.
+A simple counting script.
 
 %prep
+# nothing to prep
 
 %build
+# no build step required
 
 %install
-# Встановлюємо скрипт без створення підкаталогів
-install -D -m 0755 %{_sourcedir}/../script_caunter.sh %{buildroot}/script_caunter.sh
+install -D -m 755 %{SOURCE0} %{buildroot}%{_bindir}/script_caunter.sh
 
 %files
-# Вказуємо, що файл знаходиться в корені пакунка
 %{_bindir}/script_caunter.sh
 
 %changelog

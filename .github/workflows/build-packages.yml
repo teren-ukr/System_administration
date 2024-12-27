@@ -48,7 +48,7 @@ jobs:
       
       
     - name: Install build dependencies
-      run: sudo apt-get install -y gcc make rpm
+      run: sudo apt-get install -y gcc make rpm rpmdevtools
 
     - name: Build RPM package
       run: rpmbuild -bb lab6/rpm/SPECS/script_caunter.spec

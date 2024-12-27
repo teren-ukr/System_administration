@@ -19,8 +19,6 @@ jobs:
     - name: Set up build environment
       run: sudo apt-get update && sudo apt-get install -y rpm dpkg-dev
       
-    - name: Install build dependencies
-      run: sudo apt-get install -y gcc make
       
 
     - name: Create necessary directories for DEB and RPM
@@ -49,9 +47,8 @@ jobs:
       
       
       
-    - name: Install build dependencies for RPM
+    - name: Install build dependencies
       run: sudo apt-get install -y gcc make rpm
-
 
     - name: Build RPM package
       run: rpmbuild -bb lab6/rpm/SPECS/script_caunter.spec

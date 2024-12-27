@@ -27,33 +27,33 @@ jobs:
 
       - name: Copy files to RPM build directories
         run: |
-          cp count_files.sh ~/rpmbuild/SOURCES/count_files.sh
-          cp count_files.spec ~/rpmbuild/SPECS/count_files.spec
+          cp script_caunter.sh ~/rpmbuild/SOURCES/script_caunter.sh
+          cp script_caunter.spec ~/rpmbuild/SPECS/script_caunter.spec
 
       - name: Build RPM package
         run: |
-          rpmbuild -ba ~/rpmbuild/SPECS/count_files.spec
+          rpmbuild -ba ~/rpmbuild/SPECS/script_caunter.spec
 
       - name: Set up DEB build directory structure
         run: |
-          mkdir -p ~/debbuild/count_files-1.0/usr/local/bin
-          mkdir -p ~/debbuild/count_files-1.0/usr/share/doc/count_files
-          mkdir -p ~/debbuild/count_files-1.0/DEBIAN
+          mkdir -p ~/debbuild/script_caunter-1.0/usr/local/bin
+          mkdir -p ~/debbuild/script_caunter-1.0/usr/share/doc/script_caunter
+          mkdir -p ~/debbuild/script_caunter-1.0/DEBIAN
 
-          cp count_files.sh ~/debbuild/count_files-1.0/usr/local/bin/
-          cp DEBIAN/control ~/debbuild/count_files-1.0/DEBIAN/control
-          cp DEBIAN/rules ~/debbuild/count_files-1.0/DEBIAN/rules
-          cp DEBIAN/compat ~/debbuild/count_files-1.0/DEBIAN/compat
+          cp script_caunter.sh ~/debbuild/script_caunter-1.0/usr/local/bin/
+          cp DEBIAN/control ~/debbuild/script_caunter-1.0/DEBIAN/control
+          cp DEBIAN/rules ~/debbuild/script_caunter-1.0/DEBIAN/rules
+          cp DEBIAN/compat ~/debbuild/script_caunter-1.0/DEBIAN/compat
 
       - name: Build DEB package
         run: |
-          cd ~/debbuild/count_files-1.0
-          dpkg-deb --build . ../count_files-1.0.deb
+          cd ~/debbuild/script_caunter-1.0
+          dpkg-deb --build . ../script_caunter-1.0.deb
 
       - name: Upload RPM and DEB artifacts
         uses: actions/upload-artifact@v3
         with:
-          name: count_files_package
+          name: script_caunter_package
           path: |
-            ~/rpmbuild/RPMS/noarch/count_files-1.0-1.noarch.rpm
-            ~/debbuild/count_files-1.0.deb
+            ~/rpmbuild/RPMS/noarch/script_caunter-1.0-1.noarch.rpm
+            ~/debbuild/script_caunter-1.0.deb

@@ -18,8 +18,8 @@ jobs:
 
     - name: Set up build environment
       run: |
-        sudo apt-get update
-        sudo apt-get install -y rpm dpkg-dev rpm-build gcc make
+          sudo apt-get update
+          sudo apt-get install -y rpm build-essential fakeroot dpkg-dev
 
     - name: Create necessary directories for DEB and RPM
       run: |

@@ -3,57 +3,57 @@ name: Build RPM and DEB Packages
 on:
   push:
     branches:
-      - main
+      - main  
   pull_request:
     branches:
-      - main
+      - main  
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest  
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+      - name: Checkout Code
+        uses: actions/checkout@v3
 
-    - name: Set up build environment
-      run: |
+      - name: Install Build Dependencies
+        run: |
           sudo apt-get update
           sudo apt-get install -y rpm build-essential fakeroot dpkg-dev
 
-    - name: Create necessary directories for DEB and RPM
-      run: |
-        mkdir -p lab6/deb/bin
-        mkdir -p lab6/rpm/SOURCES
-        echo "Directories created"
+      - name: Set up RPM build directories
+        run: |
+          mkdir -p ~/rpmbuild/{BUILD,RPMS,SOURCES,SPECS,SRPMS}
 
-    - name: List files before copying for debugging
-      run: ls -R
+      - name: Copy files to RPM build directories
+        run: |
+          cp count_files.sh ~/rpmbuild/SOURCES/count_files.sh
+          cp count_files.spec ~/rpmbuild/SPECS/count_files.spec
 
-    - name: Copy script_caunter.sh to RPM sources
-      run: cp ./script_caunter.sh ./lab6/rpm/SOURCES/
+      - name: Build RPM package
+        run: |
+          rpmbuild -ba ~/rpmbuild/SPECS/count_files.spec
 
-    - name: List files after copying to RPM
-      run: ls -R ./lab6/rpm/SOURCES/
+      - name: Set up DEB build directory structure
+        run: |
+          mkdir -p ~/debbuild/count_files-1.0/usr/local/bin
+          mkdir -p ~/debbuild/count_files-1.0/usr/share/doc/count_files
+          mkdir -p ~/debbuild/count_files-1.0/DEBIAN
 
-    - name: Prepare DEB sources
-      run: cp ./script_caunter.sh ./lab6/deb/bin/
+          cp count_files.sh ~/debbuild/count_files-1.0/usr/local/bin/
+          cp DEBIAN/control ~/debbuild/count_files-1.0/DEBIAN/control
+          cp DEBIAN/rules ~/debbuild/count_files-1.0/DEBIAN/rules
+          cp DEBIAN/compat ~/debbuild/count_files-1.0/DEBIAN/compat
 
-    - name: List files after copying to DEB
-      run: ls -R ./lab6/deb
+      - name: Build DEB package
+        run: |
+          cd ~/debbuild/count_files-1.0
+          dpkg-deb --build . ../count_files-1.0.deb
 
-    - name: Build DEB package
-      run: dpkg-deb --build lab6/deb
-
-    - name: Check gcc and make availability
-      run: |
-        gcc --version
-        make --version
-
-    - name: Build RPM package
-      run: rpmbuild -bb lab6/rpm/SPECS/script_caunter.spec
-
-    - name: List generated packages
-      run: |
-        ls -R lab6/deb
-        ls -R lab6/rpm
+      - name: Upload RPM and DEB artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: count_files_package
+          path: |
+            ~/rpmbuild/RPMS/noarch/count_files-1.0-1.noarch.rpm
+            ~/debbuild/count_files-1.0.deb

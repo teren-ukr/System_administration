@@ -14,10 +14,10 @@ This is an example script.
 %build
 
 %install
-install -D -m 0755 %{_sourcedir}/../script_caunter.sh %{buildroot}/usr/local/bin/script_caunter.sh
+install -D -m 0755 %{_sourcedir}/../script_caunter.sh %{buildroot}/script_caunter.sh
 
 %files
-/usr/local/bin/script_caunter.sh
+%{_bindir}/script_caunter.sh
 
 %changelog
 * Thu Dec 26 2024 TEREN88 https://github.com/teren-ukr/System_administration - 1.0-1

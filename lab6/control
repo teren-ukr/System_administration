@@ -1,9 +1,9 @@
 Package: script-caunter
 Version: 1.0
-Section: utils
+Section: base
 Priority: optional
 Architecture: all
-Depends: bash (>= 4.0)
+Depends: bash
 Maintainer: TEREN88  https://github.com/teren-ukr/System_administration
 Description: Example script
  This is deb which was created by github actions

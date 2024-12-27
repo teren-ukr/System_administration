@@ -4,7 +4,8 @@ Release:        1%{?dist}
 Summary:        Example script
 
 License:        GPL
-Source0:        script_caunter.sh
+Source0:        ../script_caunter.sh
+
 
 %description
 This is an example script for demonstration purposes.
@@ -14,7 +15,8 @@ This is an example script for demonstration purposes.
 %build
 
 %install
-install -D -m 0755 %{SOURCE0} %{buildroot}/usr/local/bin/script_caunter.sh
+install -D -m 0755 %{_sourcedir}/../script_caunter.sh %{buildroot}/usr/local/bin/script_caunter.sh
+
 
 %files
 %license LICENSE

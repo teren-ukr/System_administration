@@ -8,7 +8,7 @@ URL:            http://example.com/script-caunter
 Source0:        script_caunter.sh
 
 BuildArch:      x86_64
-BuildRequires:  gcc, make
+
 
 %description
 A simple counting script.
